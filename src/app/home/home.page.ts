@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/dot-notation */
+/* eslint-disable @typescript-eslint/semi */
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
@@ -7,12 +9,24 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+page;
+perPage;
+total;
+totalPage;
+data;
 
-  constructor(private api: ApiService) {}
+  constructor(private apiService: ApiService) {this.buscarTodos()}
 
 
-   buscarTodos(page=1){
-     this.api.buscarUsuarios(page).subscribe(usuarios =>{});
+   buscarTodos(page=2){
+     this.apiService.buscarUsuarios(page).subscribe(usuarios =>{
+       console.log(usuarios);
+       this.page= usuarios['page'];
+       this.perPage= usuarios['per_page'];
+       this.total= usuarios['total'];
+       this.totalPage= usuarios['total_pages'];
+       this.data= usuarios['data'];
+     });
 }
 
 }
